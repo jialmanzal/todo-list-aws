@@ -208,7 +208,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_item_error')
         from src.todoList import get_item
         # Testing file functions
-        self.assertRaises(TypeError, get_item("", self.dynamodb))
+        self.assertRaises(ClientError, get_item("", self.dynamodb))
         print ('End: test_get_item_error')
 
 if __name__ == '__main__':
