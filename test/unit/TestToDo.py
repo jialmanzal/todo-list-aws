@@ -139,6 +139,8 @@ class TestDatabaseFunctions(unittest.TestCase):
                             self.dynamodb)
         print ('Result Update Item:' + str(result))
         self.assertEqual(result['text'], updated_text)
+        response_get_item = get_item(idItem,self.dynamodb)
+        print ('Response GetItem' + str(response_get_item))
         print ('End: test_update_todo')
 
 
@@ -207,7 +209,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import get_item
         # Testing file functions
         self.assertRaises(TypeError, get_item("", self.dynamodb))
-        self.assertRaises(TypeError, get_item("", ""))
         print ('End: test_get_item_error')
 
 if __name__ == '__main__':
