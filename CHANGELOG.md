@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.1] - 2022-06-12
 ### Added
 - Se ajustan parámetros unhealthyThreshold (80) y RAD_ERRORS (-nb) para cumplir con los requerimientos mínimos de calidad.
+- Se ajusta el archivo de pruebas unitarias TestToDo.py para aumentar el porcentaje de cobertura de pruebas.
 
 ## [1.0.0] - 2022-06-11
 ### Added

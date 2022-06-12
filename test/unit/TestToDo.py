@@ -80,7 +80,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import put_item
         # Table mock
         self.assertRaises(Exception, put_item("", self.dynamodb))
-        self.assertRaises(Exception, put_item("", self.dynamodb))
+        self.assertRaises(Exception, put_item("", ""))
         print ('End: test_put_todo_error')
 
     def test_get_todo(self):
@@ -139,12 +139,14 @@ class TestDatabaseFunctions(unittest.TestCase):
                             self.dynamodb)
         print ('Result Update Item:' + str(result))
         self.assertEqual(result['text'], updated_text)
+        response_get_item = get_item(idItem,self.dynamodb)
+        print ('Response GetItem' + str(response_get_item))
         print ('End: test_update_todo')
 
 
     def test_update_todo_error(self):
         print ('---------------------')
-        print ('Start: atest_update_todo_error')
+        print ('Start: test_update_todo_error')
         from src.todoList import put_item
         from src.todoList import update_item
         updated_text = "Aprender más cosas que DevOps y Cloud en la UNIR"
@@ -165,7 +167,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                 "",
                 self.uuid,
                 "false",
-                self.dynamodb))
+                ""))
         self.assertRaises(
             Exception,
             update_item(
@@ -173,7 +175,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.uuid,
                 "",
                 self.dynamodb))
-        print ('End: atest_update_todo_error')
+        print ('End: test_update_todo_error')
 
     def test_delete_todo(self):
         print ('---------------------')
@@ -198,9 +200,16 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import delete_item
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
+        self.assertRaises(TypeError, delete_item("", ""))
         print ('End: test_delete_todo_error')
 
-
+    def test_get_item_error(self):
+        print ('---------------------')
+        print ('Start: test_get_item_error')
+        from src.todoList import get_item
+        # Testing file functions
+        self.assertRaises(Exception, get_item("", self.dynamodb))
+        print ('End: test_get_item_error')
 
 if __name__ == '__main__':
     unittest.main()
