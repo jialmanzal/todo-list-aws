@@ -27,8 +27,8 @@ confirm_changeset = true
 [production.deploy]
 [production.deploy.parameters]
 stack_name = "todo-list-aws-production"
-s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-XXXXX" #Incluir bucket propio
-s3_prefix = "todo-list-aws"
+s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-s7z35tofhv3c" #Incluir bucket propio
+s3_prefix = "todo-list-aws-production"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Stage=\"production\""
