@@ -6,6 +6,7 @@ from moto import mock_dynamodb2
 import sys
 import os
 import json
+from botocore.exceptions import ClientError, UnknownServiceError
 
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
@@ -80,7 +81,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import put_item
         # Table mock
         self.assertRaises(Exception, put_item("", self.dynamodb))
-        self.assertRaises(Exception, put_item("", ""))
+        self.dynamodb = boto3.resource('cloudformation', region_name='us-east-1')
+        self.is_local = 'false'
+        self.assertRaises(Exception, put_item(True, ""))
         print ('End: test_put_todo_error')
 
     def test_get_todo(self):
@@ -104,6 +107,17 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+        
+    def test_get_item_error(self):
+        print ('---------------------')
+        print ('Start: test_get_item_error')
+        from src.todoList import get_item
+        # Testing file functions
+        self.dynamodb = boto3.resource('cloudformation', region_name='us-east-1')
+        self.is_local = 'false'
+        self.assertRaises(Exception, get_item(True, self.dynamodb))
+        #self.assertRaises(ClientError):get_item("",self.dynamodb)
+        print ('End: test_get_item_error')
     
     def test_list_todo(self):
         print ('---------------------')
@@ -175,6 +189,27 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.uuid,
                 "",
                 self.dynamodb))
+        self.assertRaises(
+            Exception,
+            update_item(
+                1234,
+                self.uuid,
+                "",
+                self.dynamodb))
+        self.assertRaises(
+            Exception,
+            update_item(
+                updated_text,
+                self.uuid,
+                1234,
+                self.dynamodb))
+        self.assertRaises(
+            Exception,
+            update_item(
+                1234,
+                self.uuid,
+                1234,
+                self.dynamodb))
         print ('End: test_update_todo_error')
 
     def test_delete_todo(self):
@@ -200,16 +235,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import delete_item
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
-        self.assertRaises(TypeError, delete_item("", ""))
         print ('End: test_delete_todo_error')
 
-    def test_get_item_error(self):
-        print ('---------------------')
-        print ('Start: test_get_item_error')
-        from src.todoList import get_item
-        # Testing file functions
-        self.assertRaises(Exception, get_item("", self.dynamodb))
-        print ('End: test_get_item_error')
+    
 
 if __name__ == '__main__':
     unittest.main()

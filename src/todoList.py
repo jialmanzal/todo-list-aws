@@ -17,8 +17,12 @@ def get_table(dynamodb=None):
                                                endpoint_url=URL)
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
-    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
-    return table
+    try:
+      table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+      return table
+    except (UnboundLocalError, AttributeError):
+        print("Error al obtener la tabla" )
+
 
 
 def get_item(key, dynamodb=None):
@@ -30,8 +34,8 @@ def get_item(key, dynamodb=None):
             }
         )
 
-    except ClientError as e:
-        print(e.response['Error']['Message'])
+    except (UnboundLocalError, AttributeError, ClientError):
+        print("Error al obtener el item")
     else:
         print('Result getItem:'+str(result))
         if 'Item' in result:
@@ -65,8 +69,8 @@ def put_item(text, dynamodb=None):
             "body": json.dumps(item)
         }
 
-    except ClientError as e:
-        print(e.response['Error']['Message'])
+    except (UnboundLocalError, AttributeError, ClientError):
+        print("Error al ejecutar el recurso put_item")
     else:
         return response
 
@@ -94,8 +98,8 @@ def update_item(key, text, checked, dynamodb=None):
             ReturnValues='ALL_NEW',
         )
 
-    except ClientError as e:
-        print(e.response['Error']['Message'])
+    except (UnboundLocalError, AttributeError, ClientError):
+        print("Error al actualizar el item")
     else:
         return result['Attributes']
 
