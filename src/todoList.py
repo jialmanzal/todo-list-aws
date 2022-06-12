@@ -21,8 +21,7 @@ def get_table(dynamodb=None):
         table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
         return table
     except (UnboundLocalError, AttributeError):
-        print("Error al obtener la tabla" )
-
+        print("Error al obtener la tabla")
 
 
 def get_item(key, dynamodb=None):
