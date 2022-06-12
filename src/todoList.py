@@ -18,8 +18,8 @@ def get_table(dynamodb=None):
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
     try:
-      table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
-      return table
+        table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+        return table
     except (UnboundLocalError, AttributeError):
         print("Error al obtener la tabla" )
 

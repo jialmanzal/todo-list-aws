@@ -168,48 +168,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Table mock
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response PutItem' + str(responsePut))
-        self.assertRaises(
-            Exception,
-            update_item(
-                updated_text,
-                "",
-                "false",
-                self.dynamodb))
-        self.assertRaises(
-            TypeError,
-            update_item(
-                "",
-                self.uuid,
-                "false",
-                ""))
-        self.assertRaises(
-            Exception,
-            update_item(
-                updated_text,
-                self.uuid,
-                "",
-                self.dynamodb))
-        self.assertRaises(
-            Exception,
-            update_item(
-                1234,
-                self.uuid,
-                "",
-                self.dynamodb))
-        self.assertRaises(
-            Exception,
-            update_item(
-                updated_text,
-                self.uuid,
-                1234,
-                self.dynamodb))
-        self.assertRaises(
-            Exception,
-            update_item(
-                1234,
-                self.uuid,
-                1234,
-                self.dynamodb))
+        self.assertRaises(Exception, update_item(updated_text,"","false",self.dynamodb))
+        self.assertRaises(TypeError, update_item("",self.uuid,"false",""))
+        self.assertRaises(Exception, update_item(updated_text,self.uuid,"",self.dynamodb))
+        self.assertRaises(Exception, update_item(1234,self.uuid,"",self.dynamodb))
+        self.assertRaises(Exception, update_item(updated_text,self.uuid,1234,self.dynamodb))
+        self.assertRaises(Exception, update_item(1234,self.uuid,1234,self.dynamodb))
         print ('End: test_update_todo_error')
 
     def test_delete_todo(self):
@@ -237,7 +201,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
-    
 
 if __name__ == '__main__':
     unittest.main()
