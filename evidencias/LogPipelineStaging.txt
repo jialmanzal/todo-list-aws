@@ -1,0 +1,682 @@
+Started by user Jesus Almanza
+Obtained pipelines/PIPELINE-FULL-STAGING/Jenkinsfile from git https://github.com/jialmanzal/todo-list-aws.git/
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential dcaa59fd-3b7b-4d40-a85a-454db9931acf
+Cloning the remote Git repository
+Cloning repository https://github.com/jialmanzal/todo-list-aws.git/
+ > git init /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING # timeout=10
+Fetching upstream changes from https://github.com/jialmanzal/todo-list-aws.git/
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress -- https://github.com/jialmanzal/todo-list-aws.git/ +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/jialmanzal/todo-list-aws.git/ # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/develop^{commit} # timeout=10
+Checking out Revision 836573891aa0a17c8365874b658be08bdcb36c90 (refs/remotes/origin/develop)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 836573891aa0a17c8365874b658be08bdcb36c90 # timeout=10
+Commit message: "Se realiza ajuste de valores mínimos de calidad"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (SetUp)
+[Pipeline] echo
+Setup Virtualenv for testing
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-STAGING/setup.sh
++ python3.7 -m venv todo-list-aws
++ source todo-list-aws/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+++ PATH=/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(todo-list-aws) ' '!=' x ']'
+++ PS1='(todo-list-aws) '
+++ export PS1
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
++ python -m pip install --upgrade pip
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/96/2f/caec18213f6a67852f6997fb0673ae08d2e93d1b81573edb93ba4ef06970/pip-22.1.2-py3-none-any.whl (2.1MB)
+Installing collected packages: pip
+  Found existing installation: pip 9.0.1
+    Uninstalling pip-9.0.1:
+      Successfully uninstalled pip-9.0.1
+Successfully installed pip-22.1.2
++ python -m pip install radon
+Collecting radon
+  Downloading radon-5.1.0-py2.py3-none-any.whl (52 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.1/52.1 kB 8.6 MB/s eta 0:00:00
+Collecting future
+  Downloading future-0.18.2.tar.gz (829 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 829.2/829.2 kB 54.4 MB/s eta 0:00:00
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting mando<0.7,>=0.6
+  Downloading mando-0.6.4-py2.py3-none-any.whl (29 kB)
+Collecting colorama>=0.4.1
+  Downloading colorama-0.4.4-py2.py3-none-any.whl (16 kB)
+Collecting six
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Using legacy 'setup.py install' for future, since package 'wheel' is not installed.
+Installing collected packages: six, future, colorama, mando, radon
+  Running setup.py install for future: started
+  Running setup.py install for future: finished with status 'done'
+Successfully installed colorama-0.4.4 future-0.18.2 mando-0.6.4 radon-5.1.0 six-1.16.0
++ python -m pip install flake8
+Collecting flake8
+  Downloading flake8-4.0.1-py2.py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.1/64.1 kB 10.3 MB/s eta 0:00:00
+Collecting pycodestyle<2.9.0,>=2.8.0
+  Downloading pycodestyle-2.8.0-py2.py3-none-any.whl (42 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.1/42.1 kB 6.0 MB/s eta 0:00:00
+Collecting pyflakes<2.5.0,>=2.4.0
+  Downloading pyflakes-2.4.0-py2.py3-none-any.whl (69 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.7/69.7 kB 13.8 MB/s eta 0:00:00
+Collecting importlib-metadata<4.3
+  Downloading importlib_metadata-4.2.0-py3-none-any.whl (16 kB)
+Collecting mccabe<0.7.0,>=0.6.0
+  Downloading mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+Collecting typing-extensions>=3.6.4
+  Downloading typing_extensions-4.2.0-py3-none-any.whl (24 kB)
+Collecting zipp>=0.5
+  Downloading zipp-3.8.0-py3-none-any.whl (5.4 kB)
+Installing collected packages: mccabe, zipp, typing-extensions, pyflakes, pycodestyle, importlib-metadata, flake8
+Successfully installed flake8-4.0.1 importlib-metadata-4.2.0 mccabe-0.6.1 pycodestyle-2.8.0 pyflakes-2.4.0 typing-extensions-4.2.0 zipp-3.8.0
++ python -m pip install flake8-polyfill
+Collecting flake8-polyfill
+  Downloading flake8_polyfill-1.0.2-py2.py3-none-any.whl (7.3 kB)
+Requirement already satisfied: flake8 in ./todo-list-aws/lib/python3.7/site-packages (from flake8-polyfill) (4.0.1)
+Requirement already satisfied: pycodestyle<2.9.0,>=2.8.0 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (2.8.0)
+Requirement already satisfied: pyflakes<2.5.0,>=2.4.0 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (2.4.0)
+Requirement already satisfied: mccabe<0.7.0,>=0.6.0 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (0.6.1)
+Requirement already satisfied: importlib-metadata<4.3 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (4.2.0)
+Requirement already satisfied: typing-extensions>=3.6.4 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata<4.3->flake8->flake8-polyfill) (4.2.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata<4.3->flake8->flake8-polyfill) (3.8.0)
+Installing collected packages: flake8-polyfill
+Successfully installed flake8-polyfill-1.0.2
++ python -m pip install bandit
+Collecting bandit
+  Downloading bandit-1.7.4-py3-none-any.whl (118 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.3/118.3 kB 13.8 MB/s eta 0:00:00
+Collecting PyYAML>=5.3.1
+  Downloading PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 596.3/596.3 kB 44.2 MB/s eta 0:00:00
+Collecting GitPython>=1.0.1
+  Downloading GitPython-3.1.27-py3-none-any.whl (181 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.2/181.2 kB 30.4 MB/s eta 0:00:00
+Collecting stevedore>=1.20.0
+  Downloading stevedore-3.5.0-py3-none-any.whl (49 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 49.7/49.7 kB 9.1 MB/s eta 0:00:00
+Requirement already satisfied: typing-extensions>=3.7.4.3 in ./todo-list-aws/lib/python3.7/site-packages (from GitPython>=1.0.1->bandit) (4.2.0)
+Collecting gitdb<5,>=4.0.1
+  Downloading gitdb-4.0.9-py3-none-any.whl (63 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.1/63.1 kB 9.7 MB/s eta 0:00:00
+Collecting pbr!=2.1.0,>=2.0.0
+  Downloading pbr-5.9.0-py2.py3-none-any.whl (112 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 112.3/112.3 kB 18.5 MB/s eta 0:00:00
+Requirement already satisfied: importlib-metadata>=1.7.0 in ./todo-list-aws/lib/python3.7/site-packages (from stevedore>=1.20.0->bandit) (4.2.0)
+Collecting smmap<6,>=3.0.1
+  Downloading smmap-5.0.0-py3-none-any.whl (24 kB)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=1.7.0->stevedore>=1.20.0->bandit) (3.8.0)
+Installing collected packages: smmap, PyYAML, pbr, stevedore, gitdb, GitPython, bandit
+Successfully installed GitPython-3.1.27 PyYAML-6.0 bandit-1.7.4 gitdb-4.0.9 pbr-5.9.0 smmap-5.0.0 stevedore-3.5.0
++ python -m pip install pytest
+Collecting pytest
+  Downloading pytest-7.1.2-py3-none-any.whl (297 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 297.0/297.0 kB 27.4 MB/s eta 0:00:00
+Collecting py>=1.8.2
+  Downloading py-1.11.0-py2.py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.7/98.7 kB 19.4 MB/s eta 0:00:00
+Collecting pluggy<2.0,>=0.12
+  Downloading pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+Collecting packaging
+  Downloading packaging-21.3-py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.8/40.8 kB 6.7 MB/s eta 0:00:00
+Collecting attrs>=19.2.0
+  Downloading attrs-21.4.0-py2.py3-none-any.whl (60 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.6/60.6 kB 11.7 MB/s eta 0:00:00
+Collecting iniconfig
+  Downloading iniconfig-1.1.1-py2.py3-none-any.whl (5.0 kB)
+Requirement already satisfied: importlib-metadata>=0.12 in ./todo-list-aws/lib/python3.7/site-packages (from pytest) (4.2.0)
+Collecting tomli>=1.0.0
+  Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+Requirement already satisfied: typing-extensions>=3.6.4 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=0.12->pytest) (4.2.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=0.12->pytest) (3.8.0)
+Collecting pyparsing!=3.0.5,>=2.0.2
+  Downloading pyparsing-3.0.9-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.3/98.3 kB 18.3 MB/s eta 0:00:00
+Installing collected packages: iniconfig, tomli, pyparsing, py, attrs, pluggy, packaging, pytest
+Successfully installed attrs-21.4.0 iniconfig-1.1.1 packaging-21.3 pluggy-1.0.0 py-1.11.0 pyparsing-3.0.9 pytest-7.1.2 tomli-2.0.1
++ python -m pip install boto3
+Collecting boto3
+  Downloading boto3-1.24.7-py3-none-any.whl (132 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 132.5/132.5 kB 17.6 MB/s eta 0:00:00
+Collecting jmespath<2.0.0,>=0.7.1
+  Downloading jmespath-1.0.0-py3-none-any.whl (23 kB)
+Collecting botocore<1.28.0,>=1.27.7
+  Downloading botocore-1.27.7-py3-none-any.whl (8.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.9/8.9 MB 66.7 MB/s eta 0:00:00
+Collecting s3transfer<0.7.0,>=0.6.0
+  Downloading s3transfer-0.6.0-py3-none-any.whl (79 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.6/79.6 kB 14.4 MB/s eta 0:00:00
+Collecting python-dateutil<3.0.0,>=2.1
+  Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 kB 34.3 MB/s eta 0:00:00
+Collecting urllib3<1.27,>=1.25.4
+  Downloading urllib3-1.26.9-py2.py3-none-any.whl (138 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.0/139.0 kB 21.6 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5 in ./todo-list-aws/lib/python3.7/site-packages (from python-dateutil<3.0.0,>=2.1->botocore<1.28.0,>=1.27.7->boto3) (1.16.0)
+Installing collected packages: urllib3, python-dateutil, jmespath, botocore, s3transfer, boto3
+Successfully installed boto3-1.24.7 botocore-1.27.7 jmespath-1.0.0 python-dateutil-2.8.2 s3transfer-0.6.0 urllib3-1.26.9
++ python -m pip install moto
+Collecting moto
+  Downloading moto-3.1.12-py3-none-any.whl (1.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 73.4 MB/s eta 0:00:00
+Collecting requests>=2.5
+  Downloading requests-2.28.0-py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 11.7 MB/s eta 0:00:00
+Collecting werkzeug>=0.5
+  Downloading Werkzeug-2.1.2-py3-none-any.whl (224 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 224.9/224.9 kB 34.2 MB/s eta 0:00:00
+Requirement already satisfied: importlib-metadata in ./todo-list-aws/lib/python3.7/site-packages (from moto) (4.2.0)
+Collecting responses>=0.9.0
+  Downloading responses-0.21.0-py3-none-any.whl (45 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.0/46.0 kB 8.9 MB/s eta 0:00:00
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in ./todo-list-aws/lib/python3.7/site-packages (from moto) (2.8.2)
+Collecting Jinja2>=2.10.1
+  Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 23.4 MB/s eta 0:00:00
+Requirement already satisfied: botocore>=1.12.201 in ./todo-list-aws/lib/python3.7/site-packages (from moto) (1.27.7)
+Collecting pytz
+  Downloading pytz-2022.1-py2.py3-none-any.whl (503 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 503.5/503.5 kB 54.9 MB/s eta 0:00:00
+Collecting MarkupSafe!=2.0.0a1
+  Downloading MarkupSafe-2.1.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)
+Requirement already satisfied: boto3>=1.9.201 in ./todo-list-aws/lib/python3.7/site-packages (from moto) (1.24.7)
+Collecting cryptography>=3.3.1
+  Downloading cryptography-37.0.2-cp36-abi3-manylinux_2_24_x86_64.whl (4.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.0/4.0 MB 61.2 MB/s eta 0:00:00
+Collecting xmltodict
+  Downloading xmltodict-0.13.0-py2.py3-none-any.whl (10.0 kB)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in ./todo-list-aws/lib/python3.7/site-packages (from boto3>=1.9.201->moto) (1.0.0)
+Requirement already satisfied: s3transfer<0.7.0,>=0.6.0 in ./todo-list-aws/lib/python3.7/site-packages (from boto3>=1.9.201->moto) (0.6.0)
+Requirement already satisfied: urllib3<1.27,>=1.25.4 in ./todo-list-aws/lib/python3.7/site-packages (from botocore>=1.12.201->moto) (1.26.9)
+Collecting cffi>=1.12
+  Downloading cffi-1.15.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (427 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 427.1/427.1 kB 36.9 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5 in ./todo-list-aws/lib/python3.7/site-packages (from python-dateutil<3.0.0,>=2.1->moto) (1.16.0)
+Collecting certifi>=2017.4.17
+  Downloading certifi-2022.5.18.1-py3-none-any.whl (155 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.2/155.2 kB 27.3 MB/s eta 0:00:00
+Collecting charset-normalizer~=2.0.0
+  Downloading charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+Collecting idna<4,>=2.5
+  Downloading idna-3.3-py3-none-any.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 12.0 MB/s eta 0:00:00
+Requirement already satisfied: typing-extensions in ./todo-list-aws/lib/python3.7/site-packages (from responses>=0.9.0->moto) (4.2.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata->moto) (3.8.0)
+Collecting pycparser
+  Downloading pycparser-2.21-py2.py3-none-any.whl (118 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.7/118.7 kB 21.9 MB/s eta 0:00:00
+Installing collected packages: pytz, xmltodict, werkzeug, pycparser, MarkupSafe, idna, charset-normalizer, certifi, requests, Jinja2, cffi, responses, cryptography, moto
+Successfully installed Jinja2-3.1.2 MarkupSafe-2.1.1 certifi-2022.5.18.1 cffi-1.15.0 charset-normalizer-2.0.12 cryptography-37.0.2 idna-3.3 moto-3.1.12 pycparser-2.21 pytz-2022.1 requests-2.28.0 responses-0.21.0 werkzeug-2.1.2 xmltodict-0.13.0
++ python -m pip install mock==4.0.2
+Collecting mock==4.0.2
+  Downloading mock-4.0.2-py3-none-any.whl (28 kB)
+Installing collected packages: mock
+Successfully installed mock-4.0.2
++ python -m pip install coverage==4.5.4
+Collecting coverage==4.5.4
+  Downloading coverage-4.5.4-cp37-cp37m-manylinux1_x86_64.whl (205 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 205.2/205.2 kB 19.8 MB/s eta 0:00:00
+Installing collected packages: coverage
+Successfully installed coverage-4.5.4
++ pwd
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+Static program analysis:
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-STAGING/static_test.sh
+++ radon cc src -nb
+++ wc -l
++ RAD_ERRORS=0
++ [[ 0 -ne 0 ]]
+++ radon mi src -nb
+++ wc -l
++ RAD_ERRORS=0
++ [[ 0 -ne 0 ]]
++ flake8 src/__init__.py src/create.py src/decimalencoder.py src/delete.py src/get.py src/list.py src/todoList.py src/update.py
++ [[ 0 -ne 0 ]]
++ bandit src/__init__.py src/create.py src/decimalencoder.py src/delete.py src/get.py src/list.py src/todoList.py src/update.py
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.7.5
+Run started:2022-06-12 15:17:03.030076
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 194
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
++ [[ 0 -ne 0 ]]
+[Pipeline] echo
+Unit testing:
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-STAGING/unit_test.sh
+++ pwd
++ export PYTHONPATH=:/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
++ PYTHONPATH=:/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
++ echo 'PYTHONPATH: :/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING'
+PYTHONPATH: :/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
++ export DYNAMODB_TABLE=todoUnitTestsTable
++ DYNAMODB_TABLE=todoUnitTestsTable
++ python test/unit/TestToDo.py
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.913s
+
+OK
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "b6ec9446-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047023.7632434", "updatedAt": "1655047023.7632434"}'}
+Id item:b6ec9446-ea62-11ec-b2e8-12d57922ab01
+Item deleted succesfully
+End: test_delete_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo_error
+End: test_delete_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "b6ec9447-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047024.0261078", "updatedAt": "1655047024.0261078"}'}
+Id item:b6ec9447-ea62-11ec-b2e8-12d57922ab01
+Result getItem:{'Item': {'id': 'b6ec9447-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655047024.0261078', 'updatedAt': '1655047024.0261078'}, 'ResponseMetadata': {'RequestId': 'OIA5SU7NN2I8G2YZCIM8TCNJ8E5PONXRE8APL74OQZT9ST249A3B', 'HTTPStatusCode': 200, 'HTTPHeaders': {'server': 'amazon.com', 'x-amzn-requestid': 'OIA5SU7NN2I8G2YZCIM8TCNJ8E5PONXRE8APL74OQZT9ST249A3B', 'x-amz-crc32': '1996206014'}, 'RetryAttempts': 0}}
+Response Get:{'id': 'b6ec9447-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655047024.0261078', 'updatedAt': '1655047024.0261078'}
+End: test_get_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_list_todo
+Table name:todoUnitTestsTable
+Response GetItems[{'id': 'b6ec9448-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655047024.109024', 'updatedAt': '1655047024.109024'}]
+End: test_list_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "b6ec9449-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047024.2548482", "updatedAt": "1655047024.2548482"}'}
+End: test_put_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo_error
+Table name:todoUnitTestsTable
+Table name:todoUnitTestsTable
+End: test_put_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_table_exists
+Table name:todoUnitTestsTable
+End: test_table_exists
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_update_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "b6ec944c-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047024.4583695", "updatedAt": "1655047024.4583695"}'}
+Id item:b6ec944c-ea62-11ec-b2e8-12d57922ab01
+Result Update Item:{'id': 'b6ec944c-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender más cosas que DevOps y Cloud en la UNIR', 'checked': 'false', 'createdAt': '1655047024.4583695', 'updatedAt': Decimal('1655047024463')}
+End: test_update_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: atest_update_todo_error
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "b6ec944d-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047024.5412304", "updatedAt": "1655047024.5412304"}'}
+End: atest_update_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
++ pip show coverage
+Name: coverage
+Version: 4.5.4
+Summary: Code coverage measurement for Python
+Home-page: https://github.com/nedbat/coveragepy
+Author: Ned Batchelder and 100 others
+Author-email: ned@nedbatchelder.com
+License: Apache 2.0
+Location: /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages
+Requires: 
+Required-by: 
++ coverage run --include=src/todoList.py test/unit/TestToDo.py
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 1.042s
+
+OK
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "b82e5dd0-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047025.9315276", "updatedAt": "1655047025.9315276"}'}
+Id item:b82e5dd0-ea62-11ec-b2e8-12d57922ab01
+Item deleted succesfully
+End: test_delete_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo_error
+End: test_delete_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "b82e5dd1-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047026.1300037", "updatedAt": "1655047026.1300037"}'}
+Id item:b82e5dd1-ea62-11ec-b2e8-12d57922ab01
+Result getItem:{'Item': {'id': 'b82e5dd1-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655047026.1300037', 'updatedAt': '1655047026.1300037'}, 'ResponseMetadata': {'RequestId': 'Y7HWM8J2ICQW43EAIJVTNKD2Q76H2BRNNJ807LVXT2QRU5YMK6XM', 'HTTPStatusCode': 200, 'HTTPHeaders': {'server': 'amazon.com', 'x-amzn-requestid': 'Y7HWM8J2ICQW43EAIJVTNKD2Q76H2BRNNJ807LVXT2QRU5YMK6XM', 'x-amz-crc32': '923818953'}, 'RetryAttempts': 0}}
+Response Get:{'id': 'b82e5dd1-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655047026.1300037', 'updatedAt': '1655047026.1300037'}
+End: test_get_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_list_todo
+Table name:todoUnitTestsTable
+Response GetItems[{'id': 'b82e5dd2-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655047026.3024495', 'updatedAt': '1655047026.3024495'}]
+End: test_list_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "b82e5dd3-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047026.3934739", "updatedAt": "1655047026.3934739"}'}
+End: test_put_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo_error
+Table name:todoUnitTestsTable
+Table name:todoUnitTestsTable
+End: test_put_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_table_exists
+Table name:todoUnitTestsTable
+End: test_table_exists
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_update_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "b82e5dd6-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047026.6625016", "updatedAt": "1655047026.6625016"}'}
+Id item:b82e5dd6-ea62-11ec-b2e8-12d57922ab01
+Result Update Item:{'id': 'b82e5dd6-ea62-11ec-b2e8-12d57922ab01', 'text': 'Aprender más cosas que DevOps y Cloud en la UNIR', 'checked': 'false', 'createdAt': '1655047026.6625016', 'updatedAt': Decimal('1655047026666')}
+End: test_update_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: atest_update_todo_error
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "b82e5dd7-ea62-11ec-b2e8-12d57922ab01", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655047026.8383315", "updatedAt": "1655047026.8383315"}'}
+End: atest_update_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
++ coverage report
+Name              Stmts   Miss  Cover
+-------------------------------------
+src/todoList.py      64     15    77%
++ coverage xml
+Post stage
+[Pipeline] script
+[Pipeline] {
+[Pipeline] publishCoverage
+Publishing Coverage report....
+A total of 1 reports were found
+[Coverage] Computing coverage delta report
+[Coverage] Reference build recorder is not configured
+[Coverage] -> No reference build defined, falling back to previous build
+[Coverage] -> Found no reference result in reference build
+Code coverage enforcement failed: Line coverage in Report level 'cobertura: coverage.xml' is lower than 80.00 healthy threshold
+io.jenkins.plugins.coverage.exception.CoverageException: Build failed because following metrics did not meet health target: [Line {unstableThreshold=0.0, unhealthyThreshold=80.0}].
+	at io.jenkins.plugins.coverage.CoverageProcessor.processThresholds(CoverageProcessor.java:535)
+	at io.jenkins.plugins.coverage.CoverageProcessor.performCoverageReport(CoverageProcessor.java:142)
+	at io.jenkins.plugins.coverage.CoveragePublisher.perform(CoveragePublisher.java:99)
+	at jenkins.tasks.SimpleBuildStep.perform(SimpleBuildStep.java:123)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:101)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:71)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution.lambda$start$0(SynchronousNonBlockingStepExecution.java:47)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
+[Pipeline] }
+[Pipeline] // script
+Error when executing always post condition:
+java.lang.NullPointerException
+	at io.jenkins.plugins.coverage.CoverageChecksPublisher.extractHealthSummary(CoverageChecksPublisher.java:190)
+	at io.jenkins.plugins.coverage.CoverageChecksPublisher.extractChecksDetails(CoverageChecksPublisher.java:61)
+	at io.jenkins.plugins.coverage.CoverageChecksPublisher.publishChecks(CoverageChecksPublisher.java:53)
+	at io.jenkins.plugins.coverage.CoveragePublisher.perform(CoveragePublisher.java:110)
+	at jenkins.tasks.SimpleBuildStep.perform(SimpleBuildStep.java:123)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:101)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:71)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution.lambda$start$0(SynchronousNonBlockingStepExecution.java:47)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+Stage "Build" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+Stage "Deploy" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Integration Test after deploy)
+Stage "Integration Test after deploy" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Clean env: delete dir
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+java.lang.NullPointerException
+	at io.jenkins.plugins.coverage.CoverageChecksPublisher.extractHealthSummary(CoverageChecksPublisher.java:190)
+	at io.jenkins.plugins.coverage.CoverageChecksPublisher.extractChecksDetails(CoverageChecksPublisher.java:61)
+	at io.jenkins.plugins.coverage.CoverageChecksPublisher.publishChecks(CoverageChecksPublisher.java:53)
+	at io.jenkins.plugins.coverage.CoveragePublisher.perform(CoveragePublisher.java:110)
+	at jenkins.tasks.SimpleBuildStep.perform(SimpleBuildStep.java:123)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:101)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:71)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution.lambda$start$0(SynchronousNonBlockingStepExecution.java:47)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Finished: FAILURE

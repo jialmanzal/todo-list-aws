@@ -1,0 +1,40 @@
+(pyenvunittests) voclabs:~/test $ pytest -s ../laboratorio1/todo-list-aws/test/integration/todoApiTest.py 
+========================================================================= test session starts ==========================================================================
+platform linux -- Python 3.7.5, pytest-7.1.2, pluggy-1.0.0
+rootdir: /home/ubuntu/laboratorio1/todo-list-aws, configfile: pytest.ini
+collected 5 items                                                                                                                                                      
+
+../laboratorio1/todo-list-aws/test/integration/todoApiTest.py ---------------------------------------
+Starting - integration test Add TODO
+Response Add Todo: {"id": "3e597a44-e2c9-11ec-9bcb-0242ac110002", "text": "Integration text example", "checked": false, "createdAt": "1654211450.3732042", "updatedAt": "1654211450.3732042"}
+ID todo:3e597a44-e2c9-11ec-9bcb-0242ac110002
+End - integration test Add TODO
+.---------------------------------------
+Starting - integration test Delete TODO
+Response Add todo: {"id": "40059c56-e2c9-11ec-a3fd-0242ac110002", "text": "Integration text example - Initial", "checked": false, "createdAt": "1654211453.19036", "updatedAt": "1654211453.19036"}
+ID todo:40059c56-e2c9-11ec-a3fd-0242ac110002
+Response Delete Todo:<Response [200]>
+Response Get Todo http://127.0.0.1:8081/todos/40059c56-e2c9-11ec-a3fd-0242ac110002: <Response [404]>
+End - integration test Delete TODO
+.---------------------------------------
+Starting - integration test Get TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "422be652-e2c9-11ec-951e-0242ac110002", "text": "Integration text example - GET", "checked": false, "createdAt": "1654211456.8031154", "updatedAt": "1654211456.8031154"}'}
+ID todo:422be652-e2c9-11ec-951e-0242ac110002
+Response Get Todo: {'checked': False, 'createdAt': '1654211456.8031154', 'id': '422be652-e2c9-11ec-951e-0242ac110002', 'text': 'Integration text example - GET', 'updatedAt': '1654211456.8031154'}
+End - integration test Get TODO
+.---------------------------------------
+Starting - integration test List TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "4450c5b0-e2c9-11ec-876c-0242ac110002", "text": "Integration text example", "checked": false, "createdAt": "1654211460.4022522", "updatedAt": "1654211460.4022522"}'}
+ID todo:4450c5b0-e2c9-11ec-876c-0242ac110002
+Response List Todo:[{'checked': False, 'createdAt': '1654211460.4022522', 'id': '4450c5b0-e2c9-11ec-876c-0242ac110002', 'text': 'Integration text example', 'updatedAt': '1654211460.4022522'}]
+End - integration test List TODO
+.---------------------------------------
+Starting - integration test Update TODO
+Response Add todo: {"id": "4612ce16-e2c9-11ec-9b36-0242ac110002", "text": "Integration text example - Initial", "checked": false, "createdAt": "1654211463.3525906", "updatedAt": "1654211463.3525906"}
+ID todo:4612ce16-e2c9-11ec-9b36-0242ac110002
+Response Update todo: {'createdAt': '1654211463.3525906', 'checked': 'true', 'id': '4612ce16-e2c9-11ec-9b36-0242ac110002', 'text': 'Integration text example - Modified', 'updatedAt': 1654211464587}
+Response Get Todo: {'createdAt': '1654211463.3525906', 'checked': 'true', 'id': '4612ce16-e2c9-11ec-9b36-0242ac110002', 'text': 'Integration text example - Modified', 'updatedAt': 1654211464587}
+End - integration test Update TODO
+.
+
+========================================================================== 5 passed in 20.11s ==========================================================================

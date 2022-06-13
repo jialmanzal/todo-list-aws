@@ -1,0 +1,129 @@
+(pyenvunittests) voclabs:~/test $ python ../laboratorio1/todo-list-aws/test/unit/TestToDo.py
+/home/ubuntu/test/pyenvunittests/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "3812f8f6-e2c7-11ec-8ab7-12e8c54f8f33", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1654210580.8375645", "updatedAt": "1654210580.8375645"}'}
+Id item:3812f8f6-e2c7-11ec-8ab7-12e8c54f8f33
+Item deleted succesfully
+End: test_delete_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo_error
+End: test_delete_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "3812f8f7-e2c7-11ec-8ab7-12e8c54f8f33", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1654210581.059143", "updatedAt": "1654210581.059143"}'}
+Id item:3812f8f7-e2c7-11ec-8ab7-12e8c54f8f33
+Result getItem:{'Item': {'id': '3812f8f7-e2c7-11ec-8ab7-12e8c54f8f33', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1654210581.059143', 'updatedAt': '1654210581.059143'}, 'ResponseMetadata': {'RequestId': 'MZ2L2ODWWXX5MBA4JK1P436J3YY64EQOORDWYME20DLN7RR34QSE', 'HTTPStatusCode': 200, 'HTTPHeaders': {'server': 'amazon.com', 'x-amzn-requestid': 'MZ2L2ODWWXX5MBA4JK1P436J3YY64EQOORDWYME20DLN7RR34QSE', 'x-amz-crc32': '2917154232'}, 'RetryAttempts': 0}}
+Response Get:{'id': '3812f8f7-e2c7-11ec-8ab7-12e8c54f8f33', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1654210581.059143', 'updatedAt': '1654210581.059143'}
+End: test_get_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_list_todo
+Table name:todoUnitTestsTable
+Response GetItems[{'id': '3812f8f8-e2c7-11ec-8ab7-12e8c54f8f33', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1654210581.1506803', 'updatedAt': '1654210581.1506803'}]
+End: test_list_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "3812f8f9-e2c7-11ec-8ab7-12e8c54f8f33", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1654210581.3779242", "updatedAt": "1654210581.3779242"}'}
+End: test_put_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo_error
+Table name:todoUnitTestsTable
+Table name:todoUnitTestsTable
+End: test_put_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_table_exists
+Table name:todoUnitTestsTable
+End: test_table_exists
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_update_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "3812f8fc-e2c7-11ec-8ab7-12e8c54f8f33", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1654210581.6070454", "updatedAt": "1654210581.6070454"}'}
+Id item:3812f8fc-e2c7-11ec-8ab7-12e8c54f8f33
+Result Update Item:{'id': '3812f8fc-e2c7-11ec-8ab7-12e8c54f8f33', 'text': 'Aprender más cosas que DevOps y Cloud en la UNIR', 'checked': 'false', 'createdAt': '1654210581.6070454', 'updatedAt': Decimal('1654210581612')}
+End: test_update_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: atest_update_todo_error
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "3812f8fd-e2c7-11ec-8ab7-12e8c54f8f33", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1654210581.6891725", "updatedAt": "1654210581.6891725"}'}
+End: atest_update_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+.
+----------------------------------------------------------------------
+Ran 9 tests in 1.045s
+
+OK
