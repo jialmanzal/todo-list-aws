@@ -201,6 +201,18 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
+    def test_translate_todo(self):
+        print ('---------------------')
+        print ('Start: test_trasnlate')
+        from src.todoList import translate_texto
+        texto = "Servicio de Traducción Expuesta para Laboratorio UNIR"
+        translation = translate_texto(texto, "en")
+        print ('Respuesta traduccion ingles:' + str(translation))
+        self.assertEqual("Exposed Translation Service for Lab  UNIR", translation)
+        translation = translate_texto(texto, "fr")
+        print ('Respuesta traduccion frances:' + str(translation))
+        self.assertEqual("Service de traduction exposé pour le laboratoire UNIR", translation)
+        print ('End: test_traslate_todo')
 
 if __name__ == '__main__':
     unittest.main()

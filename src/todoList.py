@@ -149,3 +149,25 @@ def create_todo_table(dynamodb):
         raise AssertionError()
 
     return table
+
+#Definición de la función para traducción en donde se recibe el texto a traducir y el lenguaje deseado
+def translate_texto(text, language):
+    #Se define el servicio de traducción suministrado por AWS
+    print("*** texto a traducir *** " + text)
+    print("*** lenguaje a traducir *** " + language)
+    #traductor = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
+    translate = boto3.client(service_name='translate')
+    try:
+        #Se hace uso de la funcion de traducción
+        result = translate.translate_text(Text=text, SourceLanguageCode="auto", TargetLanguageCode=language)
+        print('TranslatedText: ' + result.get('TranslatedText'))
+        print('SourceLanguageCode: ' + result.get('SourceLanguageCode'))
+        print('TargetLanguageCode: ' + result.get('TargetLanguageCode'))
+    except ClientError as e:
+        #En caso de error se imprime el respectivo mensaje
+        print(e.response['Error']['Message'])
+    else:
+        # Se retorna el texto traducido 
+        translation = result.get('TranslatedText')
+        print('Result translate:'+str(translation))
+        return translation
